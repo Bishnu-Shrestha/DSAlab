@@ -36,17 +36,9 @@ int main()
 
             if (p2 >= p1)
             {
-                while (operator.top != -1)
-                {
 
-                    int p1 = chkPrecedence(expression[i]);
-                    int p2 = chkPrecedence(operator.data[operator.top]);
-                    if (p2 == p1)
-                    {
-                        char y = POP(&operator);
-                        PUSH(&postfixExpr, y);
-                    }
-                }
+                char y = POP(&operator);
+                PUSH(&postfixExpr, y);
             }
             else
             {
