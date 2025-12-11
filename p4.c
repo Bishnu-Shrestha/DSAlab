@@ -1,8 +1,9 @@
 #include <stdio.h>
 #define MAX 20
-typedef struct
+
+typedef struct StackDf
 {
-    int data[MAX];
+    char data[MAX];
     int top;
 } stack;
 
@@ -13,7 +14,8 @@ void DISPLAY(stack *s1);
 
 int main()
 {
-    stack postfixExpr, operator;
+    stack postfixExpr;
+    stack operator;
     postfixExpr.top = -1;
     operator.top = -1;
     char expression[MAX];
@@ -22,27 +24,27 @@ int main()
     scanf("%s", expression);
     while (expression[i] != '\0')
     {
-        if ((expression[i] >= 'A' && expression[i] <= 'Z') || (expression[i] >= 'a' && expression[i] < +'z'))
+        if ((expression[i] >= 'A' && expression[i] <= 'Z') || (expression[i] >= 'a' && expression[i] <= 'z'))
         {
             PUSH(&postfixExpr, expression[i]);
-            printf(" %c\n", expression[i]);
+            printf(" Pushed to the prefix stack %c.\n", expression[i]);
         }
+        DISPLAY(&postfixExpr);
 
         if (expression[i] == '*' || expression[i] == '/' || expression[i] == '+' || expression[i] == '-' || expression[i] == '^')
         {
 
-            int p1 = chkPrecedence(expression[i]);
-            int p2 = chkPrecedence(operator.data[operator.top]);
-
-            if (p2 >= p1)
+            while (chkPrecedence(operator.data[operator.top]) >= chkPrecedence(expression[i]))
             {
-
                 char y = POP(&operator);
                 PUSH(&postfixExpr, y);
+                printf(" Pushed to the postfix stack %c.\n", y);
             }
-            else
+            DISPLAY(&postfixExpr);
+            if (chkPrecedence(operator.data[operator.top]) < chkPrecedence(expression[i]))
             {
                 PUSH(&operator, expression[i]);
+                printf(" Pushed to the operator stack %c.\n", expression[i]);
             }
 
             // printf("The precedence of %c is %d\n", expression[i], p1);
@@ -54,11 +56,13 @@ int main()
         if (expression[i] == ')')
         {
 
-            while (operator.data[operator.top] != '(')
+            while (operator.top != -1 && operator.data[operator.top] != '(')
             {
                 char y = POP(&operator);
                 PUSH(&postfixExpr, y);
+                printf(" Pushed to the postfix stack %c.\n", y);
             }
+            DISPLAY(&postfixExpr);
             if (operator.data[operator.top] == '(')
             {
                 POP(&operator);
@@ -66,6 +70,16 @@ int main()
         }
 
         i++;
+    }
+    if (expression[i] == '\0')
+    {
+        while (operator.top != -1)
+        {
+            char y = POP(&operator);
+            PUSH(&postfixExpr, y);
+            printf(" Pushed to the postfix stack %c.\n", y);
+        }
+        DISPLAY(&postfixExpr);
     }
 
     printf("\n The expression is %s.\n", expression);
@@ -115,7 +129,7 @@ int chkPrecedence(char a)
             {
                 i = 2;
             }
-            else if (i == 3 || i == 4)
+            if (i == 3 || i == 4)
             {
                 i = 4;
             }
@@ -136,7 +150,7 @@ void DISPLAY(stack *s1)
         printf("\nDisplaying the data in stack:\n\t");
         for (int i = 0; i <= s1->top; i++)
         {
-            printf(" %c ", s1->data[i]);
+            printf(" %c", s1->data[i]);
         }
     }
 }
