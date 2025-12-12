@@ -24,12 +24,12 @@ int main()
     scanf("%s", expression);
     while (expression[i] != '\0')
     {
+        printf("\nFor data %c of the expression: ", expression[i]);
         if ((expression[i] >= 'A' && expression[i] <= 'Z') || (expression[i] >= 'a' && expression[i] <= 'z'))
         {
             PUSH(&postfixExpr, expression[i]);
             printf(" Pushed to the prefix stack %c.\n", expression[i]);
         }
-        DISPLAY(&postfixExpr);
 
         if (expression[i] == '*' || expression[i] == '/' || expression[i] == '+' || expression[i] == '-' || expression[i] == '^')
         {
@@ -40,14 +40,12 @@ int main()
                 PUSH(&postfixExpr, y);
                 printf(" Pushed to the postfix stack %c.\n", y);
             }
-            DISPLAY(&postfixExpr);
+
             if (chkPrecedence(operator.data[operator.top]) < chkPrecedence(expression[i]))
             {
                 PUSH(&operator, expression[i]);
                 printf(" Pushed to the operator stack %c.\n", expression[i]);
             }
-
-            // printf("The precedence of %c is %d\n", expression[i], p1);
         }
         if (expression[i] == '(')
         {
@@ -62,7 +60,7 @@ int main()
                 PUSH(&postfixExpr, y);
                 printf(" Pushed to the postfix stack %c.\n", y);
             }
-            DISPLAY(&postfixExpr);
+
             if (operator.data[operator.top] == '(')
             {
                 POP(&operator);
@@ -70,6 +68,11 @@ int main()
         }
 
         i++;
+        printf("\n\n Postfix expression stack:\n");
+        DISPLAY(&postfixExpr);
+        printf("\n Operator stack:\n");
+        DISPLAY(&operator);
+        printf("\n Pass %d completed:\n\n", i);
     }
     if (expression[i] == '\0')
     {
@@ -79,11 +82,11 @@ int main()
             PUSH(&postfixExpr, y);
             printf(" Pushed to the postfix stack %c.\n", y);
         }
-        DISPLAY(&postfixExpr);
-    }
+        }
 
     printf("\n The expression is %s.\n", expression);
     DISPLAY(&postfixExpr);
+
     return 0;
 }
 
@@ -100,7 +103,7 @@ void PUSH(stack *s1, char newVal)
         s1->top++;
         s1->data[s1->top] = newVal;
 
-        printf("\n%c added to stack successfully.\n", newVal);
+        // printf("\n%c added to stack successfully.\n", newVal);
     }
 }
 // Function to remove the top element from an aray....
@@ -112,7 +115,7 @@ char POP(stack *s1)
     {
         char x = s1->data[s1->top];
         s1->top--;
-        printf("\nThe data %c was removed from the stack.\n", x);
+        // printf("\nThe data %c was removed from the stack.\n", x);
         return x;
     }
 }
@@ -147,7 +150,7 @@ void DISPLAY(stack *s1)
         printf("\nThe stack is empty.\n");
     else
     {
-        printf("\nDisplaying the data in stack:\n\t");
+        printf("\nDisplaying Stack:\n\t");
         for (int i = 0; i <= s1->top; i++)
         {
             printf(" %c", s1->data[i]);
