@@ -24,11 +24,11 @@ int main()
     scanf("%s", expression);
     while (expression[i] != '\0')
     {
-        printf("\nFor data %c of the expression: ", expression[i]);
+        printf("\nFor data '%c' of the expression: \n", expression[i]);
         if ((expression[i] >= 'A' && expression[i] <= 'Z') || (expression[i] >= 'a' && expression[i] <= 'z'))
         {
             PUSH(&postfixExpr, expression[i]);
-            printf(" Pushed to the prefix stack %c.\n", expression[i]);
+            printf("Pushed '%c' to the prefix stack.\n", expression[i]);
         }
 
         if (expression[i] == '*' || expression[i] == '/' || expression[i] == '+' || expression[i] == '-' || expression[i] == '^')
@@ -38,13 +38,13 @@ int main()
             {
                 char y = POP(&operator);
                 PUSH(&postfixExpr, y);
-                printf(" Pushed to the postfix stack %c.\n", y);
+                printf("Pushed '%c' to the postfix stack.\n", y);
             }
 
             if (chkPrecedence(operator.data[operator.top]) < chkPrecedence(expression[i]))
             {
                 PUSH(&operator, expression[i]);
-                printf(" Pushed to the operator stack %c.\n", expression[i]);
+                printf("Pushed '%c' to the operator stack.\n", expression[i]);
             }
         }
         if (expression[i] == '(')
@@ -58,7 +58,7 @@ int main()
             {
                 char y = POP(&operator);
                 PUSH(&postfixExpr, y);
-                printf(" Pushed to the postfix stack %c.\n", y);
+                printf("Pushed '%c' to the postfix stack.\n", y);
             }
 
             if (operator.data[operator.top] == '(')
@@ -68,11 +68,17 @@ int main()
         }
 
         i++;
-        printf("\n\n Postfix expression stack:\n");
+        printf("\n\nOperation details:\n Postfix expression stack:\n");
         DISPLAY(&postfixExpr);
         printf("\n Operator stack:\n");
         DISPLAY(&operator);
         printf("\n Pass %d completed:\n\n", i);
+
+        for (int i = 0; i < 50; i++)
+        {
+            printf("-");
+        }
+        printf("\n");
     }
     if (expression[i] == '\0')
     {
@@ -80,11 +86,15 @@ int main()
         {
             char y = POP(&operator);
             PUSH(&postfixExpr, y);
-            printf(" Pushed to the postfix stack %c.\n", y);
+            printf("Pushed to the postfix stack %c.\n", y);
         }
+        for (int i = 0; i < 50; i++)
+        {
+            printf("-");
         }
+    }
 
-    printf("\n The expression is %s.\n", expression);
+    printf("\n The given infix expression is:\n\t%s.\n", expression);
     DISPLAY(&postfixExpr);
 
     return 0;
@@ -150,10 +160,10 @@ void DISPLAY(stack *s1)
         printf("\nThe stack is empty.\n");
     else
     {
-        printf("\nDisplaying Stack:\n\t");
+        printf(" Displaying Stack:\n\t");
         for (int i = 0; i <= s1->top; i++)
         {
-            printf(" %c", s1->data[i]);
+            printf("%c", s1->data[i]);
         }
     }
 }
