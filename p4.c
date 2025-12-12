@@ -6,7 +6,7 @@ typedef struct StackDf
     char data[MAX];
     int top;
 } stack;
-
+// function prototypes..
 void PUSH(stack *, char);
 char POP(stack *);
 int chkPrecedence(char);
@@ -15,13 +15,12 @@ void stackToArr(stack *s1, char *);
 
 int main()
 {
-    stack postfixExpr;
-    stack operator;
+    stack postfixExpr, operator;
     postfixExpr.top = -1;
     operator.top = -1;
     char expression[MAX], a[MAX], b[MAX];
     int i = 0;
-    printf("Enter the infix expression for conversion to postfix:");
+    printf("Enter the infix expression for conversion to postfix: ");
     scanf("%s", expression);
     printf("\nInfix to postfix conversion table:\n");
     printf("\n| %2s | %-18s | %-24s | %-8s |\n", "SN", "Scanned Character", "Prefix expression stack", "OPstack");
@@ -96,7 +95,6 @@ int main()
 // Function to add new top element to stack.
 void PUSH(stack *s1, char newVal)
 {
-
     if (s1->top == MAX - 1)
     {
         printf("\a!!!!The stack is full cannot add any new elements.!!!!\n");
@@ -147,10 +145,10 @@ int chkPrecedence(char a)
 void DISPLAY(stack *s1)
 {
     if (s1->top == -1)
-        printf("\nThe stack is empty.\n");
+        printf("\n The stack is empty.\n");
     else
     {
-        printf("\nDisplaying Stack:\n\t");
+        printf("\n Displaying Stack:\n\t");
         for (int i = 0; i <= s1->top; i++)
         {
             printf(" %c", s1->data[i]);
@@ -158,7 +156,7 @@ void DISPLAY(stack *s1)
         printf("\n");
     }
 }
-
+// function to convert the stack data into an array of characters to display it in the table.
 void stackToArr(stack *s1, char *a)
 {
     int i = 0;
