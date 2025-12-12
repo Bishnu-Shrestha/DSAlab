@@ -11,6 +11,7 @@ void PUSH(stack *, char);
 char POP(stack *);
 int chkPrecedence(char);
 void DISPLAY(stack *s1);
+void stackToArr(stack *s1, char *);
 
 int main()
 {
@@ -18,10 +19,18 @@ int main()
     stack operator;
     postfixExpr.top = -1;
     operator.top = -1;
-    char expression[MAX];
+    char expression[MAX], a[MAX], b[MAX];
     int i = 0;
     printf("Enter the infix expression for conversion to postfix:");
     scanf("%s", expression);
+    printf("\nInfix to postfix conversion table:\n");
+    printf("\n| %2s | %-18s | %-24s | %-8s |\n", "SN", "Scanned Character", "Prefix expression stack", "OPstack");
+
+    for (int i = 0; i < 65; i++)
+    {
+        printf("-");
+    }
+    printf("\n");
     while (expression[i] != '\0')
     {
         if ((expression[i] >= 'A' && expression[i] <= 'Z') || (expression[i] >= 'a' && expression[i] <= 'z'))
@@ -62,6 +71,9 @@ int main()
             }
         }
 
+        stackToArr(&postfixExpr, a);
+        stackToArr(&operator, b);
+        printf("| %2d | %-18c | %-24s | %-8s |\n", i + 1, expression[i], a, b);
         i++;
     }
     if (expression[i] == '\0')
@@ -71,11 +83,13 @@ int main()
             char y = POP(&operator);
             PUSH(&postfixExpr, y);
         }
+        stackToArr(&postfixExpr, a);
+        stackToArr(&operator, b);
+        printf("| %2d | %-18c | %-24s | %-8s |\n", i + 1, '!', a, b);
     }
 
     printf("\n The expression is %s.\n", expression);
     DISPLAY(&postfixExpr);
-
     return 0;
 }
 
@@ -97,7 +111,7 @@ void PUSH(stack *s1, char newVal)
 char POP(stack *s1)
 {
     if (s1->top == -1)
-        printf("\nThe stack is empty.\n");
+        return '!';
     else
     {
         char x = s1->data[s1->top];
@@ -141,5 +155,25 @@ void DISPLAY(stack *s1)
         {
             printf(" %c", s1->data[i]);
         }
+        printf("\n");
+    }
+}
+
+void stackToArr(stack *s1, char *a)
+{
+    int i = 0;
+
+    if (s1->top == -1)
+    {
+        a[i] = '!';
+        a[i + 1] = '\0';
+    }
+    else
+    {
+        for (i = 0; i <= s1->top; i++)
+        {
+            a[i] = s1->data[i];
+        }
+        a[i] = '\0';
     }
 }
