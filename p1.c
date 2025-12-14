@@ -1,7 +1,9 @@
-// Create a structure Employee with emp_id, name, salary. Write a program
-// to ask the user how many employees(n) they want to enter, dynamically
-// allocate memory for n employees using malloc()and Input details and
-// display them.
+/*
+A C program to create a structure Employee with emp_id, name, salary.
+Ask the user how many employees(n) they want to enter, dynamically
+allocate memory for n employees using malloc()and Input details and
+display them.
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -35,12 +37,16 @@ int main()
         printf("Salary :");
         scanf("%f", &emp1[i].sal);
     }
-    printf("\ndisplaying the stored input:\n");
+    printf("\nDisplaying the stored input:\n");
+    printf("\n| %2s | %-11s | %-25s | %-14s |\n", "SN", "Employee ID", "Name", "Salary");
+    for (int i = 0; i < 65; i++)
+    {
+        printf("-");
+    }
+    printf("\n");
     for (int i = 0; i < n; i++)
     {
-        printf("Name: %s\n", emp1[i].name);
-        printf("Employee ID: %d\n", emp1[i].emp_id);
-        printf("Salary : %.2f\n\n", emp1[i].sal);
+        printf("| %2d | %-11d | %-25s | RS.%-11.2f |\n", i + 1, emp1[i].emp_id, emp1[i].name, emp1[i].sal);
     }
     free(emp1);
     return 0;

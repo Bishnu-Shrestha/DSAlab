@@ -1,3 +1,8 @@
+/*
+This is a menu driven C program that performs the various STACK operations
+like PUSH, POP, PEEK and finally also display the contents of the stack.
+*/
+
 #include <Stdio.h>
 #define MAX 10
 
@@ -7,6 +12,7 @@ typedef struct Stack
     int top;
 } stack;
 
+// Function prototypes..
 void PUSH(int, stack *);
 void POP(stack *);
 void PEEK(stack *);
@@ -79,7 +85,6 @@ void POP(stack *s1)
 }
 
 // Function to display top element present in the stack.
-
 void PEEK(stack *s1)
 {
     if (s1->top == -1)

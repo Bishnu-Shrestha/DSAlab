@@ -1,10 +1,12 @@
 /*
 This C program asks user for a infix expression and converts it into its equivalent
-postfix form. The program displays every step of the conversion process in a proper table
+prefix form. The program displays every step of the conversion process in a proper table
 and displays the final expression to the user.
 */
+
 #include <stdio.h>
-#define MAX 20
+#include <string.h>
+#define MAX 30
 
 typedef struct StackDf
 {
@@ -21,13 +23,15 @@ void stackToArr(stack *s1, char *);
 
 int main()
 {
-    stack postfixExpr, operator;
-    postfixExpr.top = -1;
+    stack preFixExpr, operator;
+    preFixExpr.top = -1;
     operator.top = -1;
-    char expression[MAX], a[MAX], b[MAX];
+    char expression[MAX], a[MAX], b[MAX], c[MAX];
     int i = 0;
-    printf("Enter the infix expression for conversion to postfix: ");
+    printf("Enter the infix expression for conversion to prefix: ");
     scanf("%s", expression);
+    strcpy(c, expression);
+    strrev(expression);
     printf("\nInfix to postfix conversion table:\n");
     printf("\n| %2s | %-18s | %-24s | %-8s |\n", "SN", "Scanned Character", "Prefix expression stack", "OPstack");
 
@@ -40,16 +44,16 @@ int main()
     {
         if ((expression[i] >= 'A' && expression[i] <= 'Z') || (expression[i] >= 'a' && expression[i] <= 'z'))
         {
-            PUSH(&postfixExpr, expression[i]);
+            PUSH(&preFixExpr, expression[i]);
         }
 
         if (expression[i] == '*' || expression[i] == '/' || expression[i] == '+' || expression[i] == '-' || expression[i] == '^')
         {
 
-            while (operator.top != -1 && chkPrecedence(operator.data[operator.top]) >= chkPrecedence(expression[i]))
+            while (operator.top!=-1 && chkPrecedence(operator.data[operator.top]) > chkPrecedence(expression[i]))
             {
                 char y = POP(&operator);
-                PUSH(&postfixExpr, y);
+                PUSH(&preFixExpr, y);
             }
 
             if (chkPrecedence(operator.data[operator.top]) < chkPrecedence(expression[i]))
@@ -57,26 +61,26 @@ int main()
                 PUSH(&operator, expression[i]);
             }
         }
-        if (expression[i] == '(')
+        if (expression[i] == ')')
         {
             PUSH(&operator, expression[i]);
         }
-        if (expression[i] == ')')
+        if (expression[i] == '(')
         {
 
-            while (operator.top != -1 && operator.data[operator.top] != '(')
+            while (operator.top != -1 && operator.data[operator.top] != ')')
             {
                 char y = POP(&operator);
-                PUSH(&postfixExpr, y);
+                PUSH(&preFixExpr, y);
             }
 
-            if (operator.data[operator.top] == '(')
+            if (operator.data[operator.top] == ')')
             {
                 POP(&operator);
             }
         }
 
-        stackToArr(&postfixExpr, a);
+        stackToArr(&preFixExpr, a);
         stackToArr(&operator, b);
         printf("| %2d | %-18c | %-24s | %-8s |\n", i + 1, expression[i], a, b);
         i++;
@@ -86,15 +90,15 @@ int main()
         while (operator.top != -1)
         {
             char y = POP(&operator);
-            PUSH(&postfixExpr, y);
+            PUSH(&preFixExpr, y);
         }
-        stackToArr(&postfixExpr, a);
+        stackToArr(&preFixExpr, a);
         stackToArr(&operator, b);
         printf("| %2d | %-18c | %-24s | %-8s |\n", i + 1, '!', a, b);
     }
 
-    printf("\n The given infix expression is:\n\t%s.\n", expression);
-    DISPLAY(&postfixExpr);
+    printf("\n The given infix expression is:\n\t%s.\n", c);
+    DISPLAY(&preFixExpr);
     return 0;
 }
 
@@ -154,7 +158,7 @@ void DISPLAY(stack *s1)
     else
     {
         printf("\n Displaying Stack:\n\t");
-        for (int i = 0; i <= s1->top; i++)
+        for (int i = s1->top; i >= 0; i--)
         {
             printf("%c", s1->data[i]);
         }
