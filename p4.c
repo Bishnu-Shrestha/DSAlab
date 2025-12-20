@@ -4,7 +4,7 @@ postfix form. The program displays every step of the conversion process in a pro
 and displays the final expression to the user.
 */
 #include <stdio.h>
-#define MAX 20
+#define MAX 40
 
 typedef struct StackDf
 {
@@ -25,7 +25,6 @@ int main()
     postfixExpr.top = -1;
     operator.top = -1;
     char expression[MAX], a[MAX], b[MAX];
-    int i = 0;
     printf("Enter the infix expression for conversion to postfix: ");
     scanf("%s", expression);
     printf("\nInfix to postfix conversion table:\n");
@@ -36,6 +35,7 @@ int main()
         printf("-");
     }
     printf("\n");
+    int i = 0;
     while (expression[i] != '\0')
     {
         if ((expression[i] >= 'A' && expression[i] <= 'Z') || (expression[i] >= 'a' && expression[i] <= 'z'))
@@ -46,13 +46,16 @@ int main()
         if (expression[i] == '*' || expression[i] == '/' || expression[i] == '+' || expression[i] == '-' || expression[i] == '^')
         {
 
-            while (operator.top != -1 && chkPrecedence(operator.data[operator.top]) >= chkPrecedence(expression[i]))
+            while (operator.top != -1 && (chkPrecedence(operator.data[operator.top]) >= chkPrecedence(expression[i])))
             {
                 char y = POP(&operator);
                 PUSH(&postfixExpr, y);
             }
-
-            if (chkPrecedence(operator.data[operator.top]) < chkPrecedence(expression[i]))
+            if (operator.top == -1)
+            {
+                PUSH(&operator, expression[i]);
+            }
+            else if (chkPrecedence(operator.data[operator.top]) < chkPrecedence(expression[i]))
             {
                 PUSH(&operator, expression[i]);
             }
@@ -126,24 +129,14 @@ char POP(stack *s1)
 // Function to check for precedence of the operators....
 int chkPrecedence(char a)
 {
-    int n = 6;
-    char ops[6] = {'(', '-', '+', '*', '/', '^'};
-    for (int i = 0; i < n; i++)
-    {
-        if (a == ops[i])
-        {
-            if (i == 1 || i == 2)
-            {
-                i = 2;
-            }
-            if (i == 3 || i == 4)
-            {
-                i = 4;
-            }
-            return i;
-        }
-    }
-    return -1;
+    if (a == '^')
+        return 3;
+    else if (a == '/' || a == '*')
+        return 2;
+    else if (a == '+' || a == '-')
+        return 1;
+    else if (a == '(')
+        return 0;
 }
 
 // Function to display all elements present in the stack.

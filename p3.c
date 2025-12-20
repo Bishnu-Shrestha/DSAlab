@@ -6,7 +6,7 @@ like PUSH, POP, PEEK and finally also display the contents of the stack.
 #include <Stdio.h>
 #define MAX 10
 
-typedef struct Stack
+typedef struct StackDf
 {
     int data[MAX];
     int top;
@@ -45,7 +45,7 @@ int main()
             DISPLAY(&S);
             break;
         case 5:
-            printf("Exitted successfully\n");
+            printf("Exitted successfully.\n");
             break;
         default:
             printf("\a\nInvalid input try again......\n");
@@ -60,7 +60,7 @@ void PUSH(int newVal, stack *s1)
 
     if (s1->top == MAX - 1)
     {
-        printf("\a!!!!The stack is full cannot add any new elements.!!!!\n");
+        printf("\n!!!!The stack is full cannot add any new elements.!!!!\n");
     }
     else
     {
@@ -90,7 +90,7 @@ void PEEK(stack *s1)
     if (s1->top == -1)
         printf("\nThe stack is empty.\n");
     else
-        printf("\nThe value at top of the stack is %d\n", s1->data[s1->top]);
+        printf("\nThe value at top of the stack is %d.\n", s1->data[s1->top]);
 }
 
 // Function to display all elements present in the stack.
