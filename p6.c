@@ -34,7 +34,7 @@ int main()
             scanf("%f", &val);
             PUSH(&s, val);
         }
-        else if (postfix[i] == '^' || postfix[i] == '/' || postfix[i] == '*' || postfix[i] == '+' || postfix[i] == '-')
+        else if (postfix[i] == '^' || postfix[i] == '$' || postfix[i] == '/' || postfix[i] == '*' || postfix[i] == '+' || postfix[i] == '-')
         {
             if (s.top < 1)
             {
@@ -48,8 +48,10 @@ int main()
                 switch (postfix[i])
                 {
                 case '^':
+                case '$':
                     result = pow(op1, op2);
                     break;
+
                 case '/':
                     if (op2 == 0)
                     {

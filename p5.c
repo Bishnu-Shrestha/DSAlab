@@ -4,6 +4,7 @@ prefix form. The program displays every step of the conversion process in a prop
 and displays the final expression to the user.
 */
 
+#include <ctype.h>
 #include <stdio.h>
 #include <string.h>
 #define MAX 30
@@ -42,26 +43,30 @@ int main()
     printf("\n");
     while (expression[i] != '\0')
     {
-        if ((expression[i] >= 'A' && expression[i] <= 'Z') || (expression[i] >= 'a' && expression[i] <= 'z'))
+        if (isalpha(expression[i]))
         {
             PUSH(&preFixExpr, expression[i]);
         }
 
-        if (expression[i] == '*' || expression[i] == '/' || expression[i] == '+' || expression[i] == '-' || expression[i] == '^')
+        if (expression[i] == '*' || expression[i] == '/' || expression[i] == '+' || expression[i] == '-' || expression[i] == '^' || expression[i] == '$')
         {
 
-            while (operator.top!=-1 && chkPrecedence(operator.data[operator.top]) > chkPrecedence(expression[i]))
+            while (operator.top != -1 && chkPrecedence(operator.data[operator.top]) > chkPrecedence(expression[i]))
             {
                 char y = POP(&operator);
                 PUSH(&preFixExpr, y);
             }
 
-            if (chkPrecedence(operator.data[operator.top]) < chkPrecedence(expression[i]))
+            if (operator.top != -1 && chkPrecedence(operator.data[operator.top]) < chkPrecedence(expression[i]))
+            {
+                PUSH(&operator, expression[i]);
+            }
+            else
             {
                 PUSH(&operator, expression[i]);
             }
         }
-        if (expression[i] == ')')
+        else if (expression[i] == ')')
         {
             PUSH(&operator, expression[i]);
         }
@@ -96,7 +101,7 @@ int main()
         stackToArr(&operator, b);
         printf("| %2d | %-18c | %-24s | %-8s |\n", i + 1, '!', a, b);
     }
-
+    printf("\nHere \'!\' represents the empty or null conditions for the input and stacks.\n");
     printf("\n The given infix expression is:\n\t%s.\n", c);
     DISPLAY(&preFixExpr);
     return 0;
@@ -130,24 +135,14 @@ char POP(stack *s1)
 // Function to check for precedence of the operators....
 int chkPrecedence(char a)
 {
-    int n = 6;
-    char ops[6] = {'(', '-', '+', '*', '/', '^'};
-    for (int i = 0; i < n; i++)
-    {
-        if (a == ops[i])
-        {
-            if (i == 1 || i == 2)
-            {
-                i = 2;
-            }
-            if (i == 3 || i == 4)
-            {
-                i = 4;
-            }
-            return i;
-        }
-    }
-    return -1;
+    if (a == '^' || a == '$')
+        return 3;
+    else if (a == '/' || a == '*')
+        return 2;
+    else if (a == '+' || a == '-')
+        return 1;
+    else if (a == ')')
+        return 0;
 }
 
 // Function to display all elements present in the stack.
@@ -157,7 +152,7 @@ void DISPLAY(stack *s1)
         printf("\n The stack is empty.\n");
     else
     {
-        printf("\n Displaying Stack:\n\t");
+        printf("\n Displaying equivalent prefix expression:\n\t");
         for (int i = s1->top; i >= 0; i--)
         {
             printf("%c", s1->data[i]);

@@ -3,6 +3,7 @@ This C program asks user for a infix expression and converts it into its equival
 postfix form. The program displays every step of the conversion process in a proper table
 and displays the final expression to the user.
 */
+#include <ctype.h>
 #include <stdio.h>
 #define MAX 40
 
@@ -27,7 +28,7 @@ int main()
     char expression[MAX], a[MAX], b[MAX];
     printf("Enter the infix expression for conversion to postfix: ");
     scanf("%s", expression);
-    printf("\nInfix to postfix conversion table:\n");
+    printf("\nInfix to postfix conversion iteration table:\n");
     printf("\n| %2s | %-18s | %-24s | %-8s |\n", "SN", "Scanned Character", "Prefix expression stack", "OPstack");
 
     for (int i = 0; i < 65; i++)
@@ -38,12 +39,12 @@ int main()
     int i = 0;
     while (expression[i] != '\0')
     {
-        if ((expression[i] >= 'A' && expression[i] <= 'Z') || (expression[i] >= 'a' && expression[i] <= 'z'))
+        if (isalpha(expression[i]))
         {
             PUSH(&postfixExpr, expression[i]);
         }
 
-        if (expression[i] == '*' || expression[i] == '/' || expression[i] == '+' || expression[i] == '-' || expression[i] == '^')
+        else if (expression[i] == '*' || expression[i] == '/' || expression[i] == '+' || expression[i] == '-' || expression[i] == '^' || expression[i] == '$')
         {
 
             while (operator.top != -1 && (chkPrecedence(operator.data[operator.top]) >= chkPrecedence(expression[i])))
@@ -60,11 +61,11 @@ int main()
                 PUSH(&operator, expression[i]);
             }
         }
-        if (expression[i] == '(')
+        else if (expression[i] == '(')
         {
             PUSH(&operator, expression[i]);
         }
-        if (expression[i] == ')')
+        else if (expression[i] == ')')
         {
 
             while (operator.top != -1 && operator.data[operator.top] != '(')
@@ -95,7 +96,7 @@ int main()
         stackToArr(&operator, b);
         printf("| %2d | %-18c | %-24s | %-8s |\n", i + 1, '!', a, b);
     }
-
+    printf("\nHere \'!\' represents the empty or null conditions for the input and stacks.\n");
     printf("\n The given infix expression is:\n\t%s.\n", expression);
     DISPLAY(&postfixExpr);
     return 0;
@@ -129,7 +130,7 @@ char POP(stack *s1)
 // Function to check for precedence of the operators....
 int chkPrecedence(char a)
 {
-    if (a == '^')
+    if (a == '^' || a == '$')
         return 3;
     else if (a == '/' || a == '*')
         return 2;
@@ -146,7 +147,7 @@ void DISPLAY(stack *s1)
         printf("\n The stack is empty.\n");
     else
     {
-        printf("\n Displaying Stack:\n\t");
+        printf("\n Displaying equivalent postfix expression:\n\t");
         for (int i = 0; i <= s1->top; i++)
         {
             printf("%c", s1->data[i]);
