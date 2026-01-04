@@ -1,10 +1,9 @@
 /*
-A c program to perform various queue functions in a menu driven program using
-a array implementation of a linear queue.
+A C program to perform various queue functions in a menu driven program using
+a array implementation of a circular queue.
 */
-
 #include <stdio.h>
-#define max 10
+#define max 11 // because one spot is sacrificed in achieving the circular implementation
 // Defining my Queue structure
 typedef struct QueueDf
 {
@@ -22,10 +21,10 @@ void Display(queue *);
 int main()
 {
     queue q;
-    q.front = 0;
-    q.rear = -1;
-    int ch = 1, x, d;
-    printf("This is a program to perform various Queue operations:\n");
+    q.front = max - 1;
+    q.rear = max - 1;
+    int ch = 0, x, d;
+    printf("This is a program to perform various Queue operations in a Circular Queue:\n");
     // Menu loop for running the program until the user doesnot exit the program
     while (ch != 5)
     {
@@ -58,63 +57,37 @@ int main()
     }
     return 0;
 }
-// Function to add element in Queue' rear
+// Function to add element in rear of the Queue
 void EnQueue(queue *q1, int val)
 {
-    if (q1->rear == max - 1)
+    if (q1->front == (q1->rear + 1) % max)
     {
         printf("\nThe Queue is full!!\n");
     }
     else
     {
-        q1->rear++;
         q1->item[q1->rear] = val;
+        q1->rear = (q1->rear + 1) % max;
     }
 }
 //  Function to delete the front of the Queue
 void DeQueue(queue *q1)
 {
-    if (q1->rear < q1->front)
+    if (q1->rear == q1->front)
     {
         printf("\nThe Queue is empty.\n");
     }
     else
     {
         int removed = q1->item[q1->front];
-        q1->front++;
+        q1->front = (q1->front + 1) % max;
         printf("\nData %d was removed from the Queue.\n", removed);
     }
 }
-/*
-Function to insert data in any position of queue
-Turns out insertion is not a in the Queue ADT so I am not calling this
-function in the main but am leaving it here for reference
-*/
-void Insert(queue *q1, int pos, int data)
-{
-    if (q1->rear == max - 1)
-    {
-        printf("\nThe Queue is full!!\n");
-    }
-    else if (pos < q1->front || pos > q1->rear + 1)
-    {
-        printf("\nInvalid position for insertion!!!!\n");
-    }
-    else
-    {
-        for (int i = q1->rear; i >= pos; i--)
-        {
-            q1->item[i + 1] = q1->item[i];
-        }
-        q1->rear++;
-        q1->item[pos] = data;
-        printf("\nThe value %d is inserted successfully.\n", q1->item[pos]);
-    }
-}
-// Function to display only the front of the Queue
+// Function to display only the front element of the Queue
 void Peek(queue *q1)
 {
-    if (q1->rear < q1->front)
+    if (q1->rear == q1->front)
     {
         printf("\nThe Queue is empty.\n");
     }
@@ -126,14 +99,14 @@ void Peek(queue *q1)
 // Function to disp;ay all elements in the Queue
 void Display(queue *q1)
 {
-    if (q1->rear < q1->front)
+    if (q1->rear == q1->front)
     {
         printf("\nThe Queue is empty.\n");
     }
     else
     {
         printf("\nDisplaying the contents of the Queue:\n");
-        for (int i = q1->front; i <= q1->rear; i++)
+        for (int i = q1->front; i != q1->rear; i = (i + 1) % max)
         {
             printf("\t%d ", q1->item[i]);
         }
