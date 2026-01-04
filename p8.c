@@ -3,7 +3,8 @@ A C program to perform various queue functions in a menu driven program using
 a array implementation of a circular queue.
 */
 #include <stdio.h>
-#define max 11 // because one spot is sacrificed in achieving the circular implementation
+// because one spot is sacrificed in achieving the circular implementation
+#define max 11
 // Defining my Queue structure
 typedef struct QueueDf
 {
