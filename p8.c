@@ -1,6 +1,6 @@
 /*
 A C program to perform various queue functions in a menu driven program using
-a array implementation of a circular queue.
+a array implementation of a circular queue with a space sacrifice method.
 */
 #include <stdio.h>
 // because one spot is sacrificed in achieving the circular implementation
