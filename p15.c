@@ -12,6 +12,7 @@ int main(void)
     printf("The GCD for %d and %d is %d.\n", x, y, z);
     return 0;
 }
+// Function to find GCD recursively
 int FindGCD(int a, int b)
 {
     if (b == 0)
