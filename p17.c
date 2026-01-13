@@ -28,7 +28,7 @@ void Append(list *, int);
 void Insert(list *, int, int);
 void Delete(list *, int);
 void Get(list *, int);
-void Set(list *, int, int);
+void Replace(list *, int, int);
 void Display(list *);
 int main()
 {
@@ -37,7 +37,7 @@ int main()
     int ch = 0, pos, val;
     while (ch != 7)
     {
-        printf("\n*****  MENU  ****\n 1. Insert \n 2. Delete \n 3. Get index of element \n 4. Replace value at index \n 5. Append \n 6. Display \n 7. EXIT \n \t Enter your choice of operation: ");
+        printf("\n*****  MENU  ****\n 1. Insert at position \n 2. Delete at position \n 3. Get index of element \n 4. Replace value at index \n 5. Append \n 6. Display \n 7. EXIT \n \t Enter your choice of operation: ");
         scanf("%d", &ch);
         switch (ch)
         {
@@ -59,7 +59,7 @@ int main()
         case 4:
             printf("Enter the index and value to replace the old one: ");
             scanf("%d%d", &pos, &val);
-            Set(&L1, pos, val);
+            Replace(&L1, pos, val);
             break;
         case 5:
             printf("Enter element to add to list: ");
@@ -171,7 +171,7 @@ void Get(list *a, int data)
         printf("Couldn't Get index. The List is empty.!!\n");
 }
 // Function to replace the value at given index
-void Set(list *q1, int pos, int data)
+void Replace(list *q1, int pos, int data)
 {
     if (pos < 0 || pos > q1->rear)
     {
