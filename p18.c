@@ -16,17 +16,18 @@ typedef struct node
     int data;
     struct node *next;
 } node;
+node *Head = NULL;
+int tail = 0;
 // Function prototypes
-void Insert(node *, int, int);
-void Delete(node *, int);
-void Append(node **, int);
-void Get(node *, int);
-void Replace(node *, int, int);
-void Display(node *);
+void Insert(int, int);
+void Delete(int);
+void Append(int);
+void GetPos(int);
+void Replace(int, int);
+void Display();
 
 int main(void)
 {
-    node *Head = NULL;
     int pos, val, ch = 0;
     while (ch != 7)
     {
@@ -37,27 +38,27 @@ int main(void)
         case 1:
             printf("Enter the index and value for insertion: ");
             scanf("%d%d", &pos, &val);
-            Insert(Head, pos, val);
+            Insert(pos, val);
             break;
         case 2:
             printf("Enter the index of element to be deleted: ");
             scanf("%d", &pos);
-            Delete(Head, pos);
+            Delete(pos);
             break;
         case 3:
             printf("Enter the Element to be searched: ");
             scanf("%d", &val);
-            Get(Head, val);
+            GetPos(val);
             break;
         case 4:
             printf("Enter the index and value to replace the old one: ");
             scanf("%d%d", &pos, &val);
-            Replace(Head, pos, val);
+            Replace(pos, val);
             break;
         case 5:
             printf("Enter element to add to list: ");
             scanf("%d", &val);
-            Append(&Head, val);
+            Append(val);
             break;
         case 6:
             Display(Head);
@@ -73,16 +74,16 @@ int main(void)
     return 0;
 }
 // Function to display all the list elements
-void Display(node *start)
+void Display()
 {
-    if (start == NULL)
+    if (Head == NULL)
     {
         printf("\nThe Linked List is empty. !!\n");
     }
     else
     {
         printf("\nDisplaying the contents of the Linked List:\n");
-        node *temp = start;
+        node *temp = Head;
         while (temp != NULL)
         {
             printf("\t%d ", temp->data);
@@ -92,7 +93,7 @@ void Display(node *start)
     }
 }
 // Function for adding list elements
-void Append(node **start, int newVal)
+void Append(int newVal)
 {
     node *newNode = (node *)malloc(sizeof(node));
     if (newNode == NULL)
@@ -100,23 +101,51 @@ void Append(node **start, int newVal)
         printf("Couldn't allocate memory. ");
         return;
     }
+    newNode->next = NULL;
     newNode->data = newVal;
-    if (*start == NULL)
+    if (Head == NULL)
     {
-        (*start)->next = newNode;
+        Head = newNode;
     }
     else
     {
-        node **temp = start;
-        while ((*temp)->next != NULL)
+        node *temp = Head;
+        while (temp->next != NULL)
         {
-            *temp = (*temp)->next;
+            temp = temp->next;
         }
-        (*temp)->next = newNode;
+        temp->next = newNode;
     }
-    newNode->next = NULL;
+    tail++;
 }
-void Insert(node *start, int pos, int val) {}
-void Delete(node *start, int pos) {}
-void Get(node *start, int val) {}
-void Replace(node *start, int pos, int val) {}
+// Function to insert given data at given position
+void Insert(int pos, int val)
+{
+    if (pos < 1 || pos > tail + 1)
+    {
+        printf("Invalid position for insertion");
+        return;
+    }
+    else
+    {
+        node *newNode, *temp;
+        temp = Head;
+        newNode = (node *)malloc(sizeof(node));
+        if (newNode == NULL)
+        {
+            printf("Couldn't allocate memory. ");
+            return;
+        }
+        newNode->data = val;
+        for (int i = 1; i < pos - 1; i++)
+        {
+            temp = temp->next;
+        }
+        newNode->next = temp->next;
+        temp->next = newNode;
+        printf("Inserted the value %d successfully.\n", newNode->data);
+    }
+}
+void Delete(int pos) {}
+void GetPos(int val) {}
+void Replace(int pos, int val) {}

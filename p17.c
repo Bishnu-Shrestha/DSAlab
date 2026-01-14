@@ -27,7 +27,7 @@ int isFull(list *);
 void Append(list *, int);
 void Insert(list *, int, int);
 void Delete(list *, int);
-void Get(list *, int);
+void GetPos(list *, int);
 void Replace(list *, int, int);
 void Display(list *);
 int main()
@@ -54,7 +54,7 @@ int main()
         case 3:
             printf("Enter the Element to be searched: ");
             scanf("%d", &val);
-            Get(&L1, val);
+            GetPos(&L1, val);
             break;
         case 4:
             printf("Enter the index and value to replace the old one: ");
@@ -153,7 +153,7 @@ void Delete(list *q1, int pos)
     }
 }
 // Function to find index of element in the list
-void Get(list *a, int data)
+void GetPos(list *a, int data)
 {
     if (!isEmpty(a))
     {
