@@ -146,6 +146,38 @@ void Insert(int pos, int val)
         printf("Inserted the value %d successfully.\n", newNode->data);
     }
 }
-void Delete(int pos) {}
+// Function to delete the indexed element.
+void Delete(int pos)
+{
+    if (Head == NULL)
+    {
+        printf("The Linked List is empty.\n");
+        return;
+    }
+    else if (pos < 1 || pos > tail + 1)
+    {
+        printf("Invalid position for Deletion");
+        return;
+    }
+    else
+    {
+        node *temp;
+        temp = Head;
+        for (int i = 1; i < pos - 1; i++)
+        {
+            temp = temp->next;
+            if (temp == NULL)
+            {
+                printf("Couldn't Deleter the given position.\n");
+                return;
+            }
+        }
+        node *hold;
+        hold = temp->next;
+        temp->next = hold->next;
+        printf("Deleted the %d item %d.\n", pos, hold->data);
+        free(hold);
+    }
+}
 void GetPos(int val) {}
 void Replace(int pos, int val) {}
