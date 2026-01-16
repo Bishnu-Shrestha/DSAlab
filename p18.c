@@ -115,35 +115,43 @@ void Append(int newVal)
             temp = temp->next;
         }
         temp->next = newNode;
+        tail++;
+        printf("Inserted %d at the end.\n", newNode->data);
     }
-    tail++;
 }
 // Function to insert given data at given position
 void Insert(int pos, int val)
 {
+    node *newNode, *temp;
+    temp = Head;
+    newNode = (node *)malloc(sizeof(node));
+    if (newNode == NULL)
+    {
+        printf("Couldn't allocate memory. ");
+        return;
+    }
+    newNode->data = val;
+    newNode->next = NULL;
     if (pos < 1 || pos > tail + 1)
     {
         printf("Invalid position for insertion");
+        free(newNode);
         return;
+    }
+    else if (Head == NULL)
+    {
+        Head = newNode;
+        tail++;
     }
     else
     {
-        node *newNode, *temp;
-        temp = Head;
-        newNode = (node *)malloc(sizeof(node));
-        if (newNode == NULL)
-        {
-            printf("Couldn't allocate memory. ");
-            return;
-        }
-        newNode->data = val;
-        for (int i = 1; i < pos - 1; i++)
+        for (int i = 1; i < pos; i++)
         {
             temp = temp->next;
         }
         newNode->next = temp->next;
         temp->next = newNode;
-        printf("Inserted the value %d successfully.\n", newNode->data);
+        printf("Inserted the value %d successfully at %d position.\n", newNode->data, pos);
     }
 }
 // Function to delete the indexed element.
@@ -168,16 +176,65 @@ void Delete(int pos)
             temp = temp->next;
             if (temp == NULL)
             {
-                printf("Couldn't Deleter the given position.\n");
+                printf("Couldn't Delete the given position.\n");
                 return;
             }
         }
         node *hold;
         hold = temp->next;
         temp->next = hold->next;
-        printf("Deleted the %d item %d.\n", pos, hold->data);
+        printf("Deleted the item %d at position %d.\n", pos, hold->data);
+        tail--;
         free(hold);
     }
 }
-void GetPos(int val) {}
-void Replace(int pos, int val) {}
+void GetPos(int val)
+{
+    if (Head == NULL)
+    {
+        printf("The Linked List is empty.\n");
+        return;
+    }
+    else
+    {
+        node *temp = Head;
+        int i = 0;
+        while (temp->data != val)
+        {
+            if (temp->next = NULL)
+            {
+                printf("Element not in the Linked List.\n");
+                return;
+            }
+            temp = temp->next;
+            i++;
+        }
+
+        printf("The value %d is located at position %d.\n", val, i);
+    }
+}
+void Replace(int pos, int val)
+{
+    if (Head == NULL)
+    {
+        printf("The Linked List is empty.\n");
+        return;
+    }
+    else
+    {
+        node *temp = Head;
+
+        for (int i = 1; i < pos - 1; i++)
+        {
+            if (temp->next = NULL)
+            {
+                printf("Element not in the Linked List.\n");
+                return;
+            }
+            temp = temp->next;
+        }
+        int before = temp->data;
+        temp->data = val;
+        printf("Replaced the value %d at position %d to %d.\n", before, pos, temp->data);
+    }
+}
