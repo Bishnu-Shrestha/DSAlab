@@ -31,7 +31,7 @@ int main(void)
     int pos, val, ch = 0;
     while (ch != 7)
     {
-        printf("\n*****  MENU  ****\n 1. Insert at position \n 2. Delete at position \n 3. Get index of element \n 4. Replace value at index \n 5. Append \n 6. Display \n 7. EXIT \n \t Enter your choice of operation: ");
+        printf("\n*****  MENU  *****\n 1. Insert at position \n 2. Delete at position \n 3. Get index of element \n 4. Replace value at index \n 5. Append \n 6. Display \n 7. EXIT \n \t Enter your choice of operation: ");
         scanf("%d", &ch);
         switch (ch)
         {
@@ -64,7 +64,7 @@ int main(void)
             Display(Head);
             break;
         case 7:
-            printf("\n******  EXITING ******\n");
+            printf("\n******  EXITING  ******\n");
             break;
         default:
             printf("\n!!!!!  ERROR  !!!!! \n\tInvalid Choice please try again: \n");

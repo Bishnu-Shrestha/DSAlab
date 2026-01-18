@@ -7,6 +7,7 @@ C program to perform doubly linked list operations;
 typedef struct node
 {
     int data;
+    struct node *prev;
     struct node *next;
 } node;
 node *Head = NULL;
@@ -24,7 +25,7 @@ int main(void)
     int pos, val, ch = 0;
     while (ch != 7)
     {
-        printf("\n*****  MENU  ****\n 1. Insert at position \n 2. Delete at position \n 3. Get index of element \n 4. Replace value at index \n 5. Append \n 6. Display \n 7. EXIT \n \t Enter your choice of operation: ");
+        printf("\n*****  MENU  *****\n 1. Insert at position \n 2. Delete at position \n 3. Get index of element \n 4. Replace value at index \n 5. Append \n 6. Display \n 7. EXIT \n \t Enter your choice of operation: ");
         scanf("%d", &ch);
         switch (ch)
         {
@@ -57,7 +58,7 @@ int main(void)
             Display(Head);
             break;
         case 7:
-            printf("\n******  EXITING ******\n");
+            printf("\n******  EXITING  ******\n");
             break;
         default:
             printf("\n!!!!!  ERROR  !!!!! \n\tInvalid Choice please try again: \n");
@@ -66,3 +67,27 @@ int main(void)
     }
     return 0;
 }
+// Function to display all the list elements
+void Display()
+{
+    if (Head == NULL)
+    {
+        printf("\nThe Linked List is empty. !!\n");
+    }
+    else
+    {
+        printf("\nDisplaying the contents of the Linked List:\n");
+        node *temp = Head;
+        while (temp != NULL)
+        {
+            printf("\t%d ", temp->data);
+            temp = temp->next;
+        }
+        printf("\n");
+    }
+}
+void Insert(int, int);
+void Delete(int);
+void Append(int);
+void GetPos(int);
+void Replace(int, int);
