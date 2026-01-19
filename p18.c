@@ -25,6 +25,7 @@ void Append(int);
 void GetPos(int);
 void Replace(int, int);
 void Display();
+void ReleaseMemory();
 
 int main(void)
 {
@@ -65,6 +66,7 @@ int main(void)
             break;
         case 7:
             printf("\n******  EXITING  ******\n");
+            ReleaseMemory();
             break;
         default:
             printf("\n!!!!!  ERROR  !!!!! \n\tInvalid Choice please try again: \n");
@@ -82,8 +84,9 @@ void Display()
     }
     else
     {
-        printf("\nDisplaying the contents of the Linked List:\n");
+        printf("\nDisplaying the contents of the Linked List:\n\t Element number: %d\n", tail);
         node *temp = Head;
+
         while (temp != NULL)
         {
             printf("\t%d ", temp->data);
@@ -106,6 +109,7 @@ void Append(int newVal)
     if (Head == NULL)
     {
         Head = newNode;
+        tail++;
     }
     else
     {
@@ -120,6 +124,7 @@ void Append(int newVal)
     }
 }
 // Function to insert given data at given position
+// TODO insertion at first position is broken
 void Insert(int pos, int val)
 {
     node *newNode, *temp;
@@ -145,12 +150,13 @@ void Insert(int pos, int val)
     }
     else
     {
-        for (int i = 1; i < pos; i++)
+        for (int i = 1; i < pos - 1; i++)
         {
             temp = temp->next;
         }
         newNode->next = temp->next;
         temp->next = newNode;
+        tail++;
         printf("Inserted the value %d successfully at %d position.\n", newNode->data, pos);
     }
 }
@@ -188,6 +194,7 @@ void Delete(int pos)
         free(hold);
     }
 }
+// Function to get the position of element if present in the list
 void GetPos(int val)
 {
     if (Head == NULL)
@@ -213,6 +220,7 @@ void GetPos(int val)
         printf("The value %d is located at position %d.\n", val, i);
     }
 }
+// Function to change the element present at given position with given value
 void Replace(int pos, int val)
 {
     if (Head == NULL)
@@ -236,5 +244,16 @@ void Replace(int pos, int val)
         int before = temp->data;
         temp->data = val;
         printf("Replaced the value %d at position %d to %d.\n", before, pos, temp->data);
+    }
+}
+// Function to free the memory used from the heap using malloc
+void ReleaseMemory()
+{
+    node *temp = Head;
+    while (temp != NULL)
+    {
+        node *new = temp->next;
+        free(temp);
+        temp = new;
     }
 }
