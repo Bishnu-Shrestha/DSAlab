@@ -80,11 +80,11 @@ void Display()
 {
     if (Head == NULL)
     {
-        printf("\nThe Linked List is empty. !!\n");
+        printf("\nThe Singly Linked List is empty. !!\n");
     }
     else
     {
-        printf("\nDisplaying the contents of the Linked List:\n\t Element number: %d\n", tail);
+        printf("\nDisplaying the contents of the Singly Linked List:\n\t Element number: %d\n", tail);
         node *temp = Head;
 
         while (temp != NULL)
@@ -101,7 +101,7 @@ void Append(int newVal)
     node *newNode = (node *)malloc(sizeof(node));
     if (newNode == NULL)
     {
-        printf("Couldn't allocate memory. ");
+        printf("Couldn't allocate memory. \n");
         return;
     }
     newNode->next = NULL;
@@ -109,7 +109,6 @@ void Append(int newVal)
     if (Head == NULL)
     {
         Head = newNode;
-        tail++;
     }
     else
     {
@@ -119,12 +118,11 @@ void Append(int newVal)
             temp = temp->next;
         }
         temp->next = newNode;
-        tail++;
-        printf("Inserted %d at the end.\n", newNode->data);
     }
+    tail++;
+    printf("Inserted %d at the end.\n", newNode->data);
 }
 // Function to insert given data at given position
-// TODO insertion at first position is broken
 void Insert(int pos, int val)
 {
     node *newNode, *temp;
@@ -132,21 +130,25 @@ void Insert(int pos, int val)
     newNode = (node *)malloc(sizeof(node));
     if (newNode == NULL)
     {
-        printf("Couldn't allocate memory. ");
+        printf("Couldn't allocate memory.\n");
         return;
     }
     newNode->data = val;
     newNode->next = NULL;
     if (pos < 1 || pos > tail + 1)
     {
-        printf("Invalid position for insertion");
+        printf("Invalid position for insertion.\n");
         free(newNode);
         return;
     }
     else if (Head == NULL)
     {
         Head = newNode;
-        tail++;
+    }
+    else if (pos == 1)
+    {
+        newNode->next = Head;
+        Head = newNode;
     }
     else
     {
@@ -156,16 +158,18 @@ void Insert(int pos, int val)
         }
         newNode->next = temp->next;
         temp->next = newNode;
-        tail++;
-        printf("Inserted the value %d successfully at %d position.\n", newNode->data, pos);
     }
+    printf("Inserted the value %d successfully at %d position.\n", newNode->data, pos);
+    tail++;
 }
 // Function to delete the indexed element.
 void Delete(int pos)
 {
+    node *temp, *hold;
+    temp = Head;
     if (Head == NULL)
     {
-        printf("The Linked List is empty.\n");
+        printf("The Singly Linked List is empty.\n");
         return;
     }
     else if (pos < 1 || pos > tail + 1)
@@ -173,33 +177,35 @@ void Delete(int pos)
         printf("Invalid position for Deletion");
         return;
     }
+    else if (pos == 1)
+    {
+        hold = temp;
+        Head = temp->next;
+    }
     else
     {
-        node *temp;
-        temp = Head;
         for (int i = 1; i < pos - 1; i++)
         {
             temp = temp->next;
             if (temp == NULL)
             {
-                printf("Couldn't Delete the given position.\n");
+                printf("Couldn't Delete item at the given position.\n");
                 return;
             }
         }
-        node *hold;
         hold = temp->next;
         temp->next = hold->next;
-        printf("Deleted the item %d at position %d.\n", pos, hold->data);
-        tail--;
-        free(hold);
     }
+    printf("Deleted the item %d at position %d.\n", hold->data, pos);
+    tail--;
+    free(hold);
 }
 // Function to get the position of element if present in the list
 void GetPos(int val)
 {
     if (Head == NULL)
     {
-        printf("The Linked List is empty.\n");
+        printf("The Singly Linked List is empty.\n");
         return;
     }
     else
@@ -210,13 +216,12 @@ void GetPos(int val)
         {
             if (temp->next = NULL)
             {
-                printf("Element not in the Linked List.\n");
+                printf("Element is not present in the Singly Linked List.\n");
                 return;
             }
             temp = temp->next;
             i++;
         }
-
         printf("The value %d is located at position %d.\n", val, i);
     }
 }
@@ -225,7 +230,7 @@ void Replace(int pos, int val)
 {
     if (Head == NULL)
     {
-        printf("The Linked List is empty.\n");
+        printf("The Singly Linked List is empty.\n");
         return;
     }
     else
@@ -236,7 +241,7 @@ void Replace(int pos, int val)
         {
             if (temp->next = NULL)
             {
-                printf("Element not in the Linked List.\n");
+                printf("Element is not in the Singly Linked List.\n");
                 return;
             }
             temp = temp->next;
