@@ -19,6 +19,7 @@ void Append(int);
 void GetPos(int);
 void Replace(int, int);
 void Display();
+void ReleaseMemory();
 
 int main(void)
 {
@@ -59,6 +60,7 @@ int main(void)
             break;
         case 7:
             printf("\n******  EXITING  ******\n");
+            ReleaseMemory();
             break;
         default:
             printf("\n!!!!!  ERROR  !!!!! \n\tInvalid Choice please try again: \n");
@@ -72,11 +74,11 @@ void Display()
 {
     if (Head == NULL)
     {
-        printf("\nThe Linked List is empty. !!\n");
+        printf("\nThe Doubly Linked List is empty. !!\n");
     }
     else
     {
-        printf("\nDisplaying the contents of the Linked List:\n");
+        printf("\nDisplaying the contents of the Doubly Linked List:\n");
         node *temp = Head;
         while (temp != NULL)
         {
@@ -91,3 +93,4 @@ void Delete(int);
 void Append(int);
 void GetPos(int);
 void Replace(int, int);
+void ReleaseMemory();
