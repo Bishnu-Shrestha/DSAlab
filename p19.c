@@ -88,7 +88,10 @@ void Display()
         printf("\n");
     }
 }
-void Insert(int, int);
+void Insert(int val, int pos){
+    if(Head == NULL)
+        printf("Can't insert. The list is empty");
+}
 void Delete(int);
 void Append(int);
 void GetPos(int);
