@@ -88,9 +88,77 @@ void Display()
         printf("\n");
     }
 }
-void Insert(int, int);
-void Delete(int);
-void Append(int);
-void GetPos(int);
-void Replace(int, int);
-void ReleaseMemory();
+// Function to insert given data at given position
+void Insert(int pos, int val)
+{
+    node *newNode, *temp;
+    temp = Head;
+    newNode = (node *)malloc(sizeof(node));
+    if (newNode == NULL)
+    {
+        printf("Couldn't allocate memory.\n");
+        return;
+    }
+    newNode->data = val;
+    newNode->prev = NULL;
+    newNode->next = NULL;
+    if (pos < 1 || pos > tail + 1)
+    {
+        printf("Invalid position for insertion.\n");
+        free(newNode);
+        return;
+    }
+    else if (Head == NULL)
+    {
+        Head = newNode;
+    }
+    else if (pos == 1)
+    {
+        newNode->next = Head;
+        Head = newNode;
+    }
+    else
+    {
+        for (int i = 1; i < pos - 1; i++)
+        {
+            temp = temp->next;
+        }
+        newNode->next = temp->next;
+        newNode->prev = temp;
+        temp->next = newNode;
+    }
+    printf("Inserted the value %d successfully at %d position.\n", newNode->data, pos);
+    tail++;
+}
+// Function for adding list elements
+void Append(int newVal)
+{
+    node *newNode = (node *)malloc(sizeof(node));
+    if (newNode == NULL)
+    {
+        printf("Couldn't allocate memory. \n");
+        return;
+    }
+    newNode->next = NULL;
+    newNode->next = NULL;
+    newNode->data = newVal;
+    if (Head == NULL)
+    {
+        Head = newNode;
+    }
+    else
+    {
+        node *temp = Head;
+        while (temp->next != NULL)
+        {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+    tail++;
+    printf("Inserted %d at the end.\n", newNode->data);
+}
+void Delete(int pos) {}
+void GetPos(int val) {}
+void Replace(int val, int pos) {}
+void ReleaseMemory() {}
