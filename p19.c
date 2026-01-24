@@ -158,7 +158,35 @@ void Append(int newVal)
     tail++;
     printf("Inserted %d at the end.\n", newNode->data);
 }
-void Delete(int pos) {}
+void Delete(int pos)
+{
+    node *temp = Head;
+    if (Head == NULL)
+    {
+        printf("The Doubly Linked List is empty\n");
+    }
+    else if (pos == 1)
+    {
+        Head = temp->next;
+    }
+    else if (pos < 1 || pos > tail)
+    {
+        printf("Invalid position for Deletion");
+        return;
+    }
+    else
+    {
+        for (int i = 1; i < pos; i++)
+        {
+            temp = temp->next;
+        }
+        temp->prev->next = temp->next;
+        temp->next->prev = temp->prev;
+        printf("Deleted the item %d at position %d.\n", temp->data, pos);
+    }
+    free(temp);
+    tail--;
+}
 void GetPos(int val) {}
 void Replace(int val, int pos) {}
 void ReleaseMemory() {}

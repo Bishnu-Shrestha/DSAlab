@@ -172,7 +172,7 @@ void Delete(int pos)
         printf("The Singly Linked List is empty.\n");
         return;
     }
-    else if (pos < 1 || pos > tail + 1)
+    else if (pos < 1 || pos > tail )
     {
         printf("Invalid position for Deletion");
         return;
