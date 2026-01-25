@@ -187,6 +187,65 @@ void Delete(int pos)
     free(temp);
     tail--;
 }
-void GetPos(int val) {}
-void Replace(int val, int pos) {}
-void ReleaseMemory() {}
+// Function to get the position of element if present in the list
+void GetPos(int val)
+{
+    if (Head == NULL)
+    {
+        printf("The doubly Linked List is empty.\n");
+        return;
+    }
+    else
+    {
+        node *temp = Head;
+        int i = 0;
+        while (temp->data != val)
+        {
+            if (temp->next = NULL)
+            {
+                printf("Element is not present in the doubly Linked List.\n");
+                return;
+            }
+            temp = temp->next;
+            i++;
+        }
+        printf("The value %d is located at position %d.\n", val, i);
+    }
+}
+// Function to change the element present at given position with given value
+void Replace(int pos, int val)
+{
+    if (Head == NULL)
+    {
+        printf("The doubly Linked List is empty.\n");
+        return;
+    }
+    else
+    {
+        node *temp = Head;
+
+        for (int i = 1; i < pos - 1; i++)
+        {
+            if (temp->next = NULL)
+            {
+                printf("Element is not in the doubly Linked List.\n");
+                return;
+            }
+            temp = temp->next;
+        }
+        int before = temp->data;
+        temp->data = val;
+        printf("Replaced the value %d at position %d to %d.\n", before, pos, temp->data);
+    }
+}
+// Function to free the memory used from the heap using malloc
+void ReleaseMemory()
+{
+    node *temp = Head;
+    while (temp != NULL)
+    {
+        node *new = temp->next;
+        free(temp);
+        temp = new;
+    }
+}
