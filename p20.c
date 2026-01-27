@@ -8,10 +8,10 @@ typedef struct Node
 {
     int data;
     struct Node *next;
-} Node;
+} node;
 // initializing the head and tail pointer for the circular linked list to NULL
-Node *Head = NULL;
-Node *Tail = NULL;
+node *Head = NULL;
+node *Tail = NULL;
 // function prototypes
 void InsertBegining(int);
 void InsertEnd(int);
@@ -24,7 +24,7 @@ int main(void)
     int ch = 0, val = 0;
     while (ch != 6)
     {
-        printf("******  MENU  ******\n 1. Insert at begining \n 2. Insert at end \n 3. Delete at begining \n 4. Delete at End \n 5. EXIT \n \t Enter your choice: ");
+        printf("\n******  MENU  ******\n 1. Insert at begining \n 2. Insert at end \n 3. Delete at begining \n 4. Delete at End \n 5. Display \n 6. EXIT \n \t Enter your choice: ");
         scanf("%d", &ch);
         switch (ch)
         {
@@ -59,3 +59,56 @@ int main(void)
 
     return 0;
 }
+// Function to display all the list elements
+void Display()
+{
+    if (Head == NULL)
+    {
+        printf("\nThe Singly Linked List is empty. !!\n");
+    }
+    else
+    {
+        printf("\n Displaying the contents of the Circular Linked List:\n");
+        node *temp = Head;
+
+        do
+        {
+            printf("\t%d ", temp->data);
+            temp = temp->next;
+        } while (temp != Head);
+        printf("\n");
+    }
+}
+// Function to insert given data at given position
+void InsertBegining(int val)
+{
+    node *newNode, *temp;
+    temp = Head;
+    newNode = (node *)malloc(sizeof(node));
+    if (newNode == NULL)
+    {
+        printf("Couldn't allocate memory.\n");
+        return;
+    }
+    newNode->data = val;
+    newNode->next = NULL;
+    if (Head == NULL)
+    {
+        Head = newNode;
+        newNode->next = Head;
+        Tail = Head;
+    }
+    else
+    {
+        newNode->next = Head;
+        Head = newNode;
+        Tail->next = Head;
+    }
+
+    printf("Inserted the value %d successfully. \n", newNode->data);
+}
+
+void InsertEnd(int val) {}
+void DeleteBegining() {}
+void DeleteEnd() {}
+void ReleaseMemory() {}
