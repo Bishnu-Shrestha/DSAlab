@@ -107,8 +107,33 @@ void InsertBegining(int val)
 
     printf("Inserted the value %d successfully. \n", newNode->data);
 }
+// Function to insert value at end of the circular linked list.
+void InsertEnd(int val)
+{
 
-void InsertEnd(int val) {}
+    node *newNode, *temp;
+    temp = Head;
+    newNode = (node *)malloc(sizeof(node));
+    if (newNode == NULL)
+    {
+        printf("Couldn't allocate memory.\n");
+        return;
+    }
+    newNode->data = val;
+    newNode->next = NULL;
+    if (Head == NULL)
+    {
+        Head = newNode;
+        newNode->next = Head;
+        Tail = Head;
+    }
+    else
+    {
+        Tail->next = newNode;
+        Tail = newNode;
+        newNode->next = Head;
+    }
+}
 void DeleteBegining() {}
 void DeleteEnd() {}
 void ReleaseMemory() {}
