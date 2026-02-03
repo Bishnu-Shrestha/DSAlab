@@ -64,7 +64,7 @@ void Display()
 {
     if (Head == NULL)
     {
-        printf("\nThe Singly Linked List is empty. !!\n");
+        printf("\nThe Circular Linked List is empty. !!\n");
     }
     else
     {
@@ -133,7 +133,63 @@ void InsertEnd(int val)
         Tail = newNode;
         newNode->next = Head;
     }
+    printf("Inserted the value %d successfully. \n", newNode->data);
 }
-void DeleteBegining() {}
-void DeleteEnd() {}
-void ReleaseMemory() {}
+// Function to delete node at the begining of the circular linked list
+void DeleteBegining()
+{
+    node *temp = Head;
+    if (Head == NULL)
+    {
+        printf("\nThe Circular Linked List is empty. !!\n");
+    }
+    else if (Head == Tail)
+    {
+        Head = NULL;
+    }
+    else
+    {
+        Head = Head->next;
+    }
+    Tail->next = Head;
+    printf("Deleted the first node %d Successfully.\n", temp->data);
+    free(temp);
+}
+// Function to delete node at the end of the circular linked list
+void DeleteEnd()
+{
+    node *temp = Head;
+    if (Head == NULL)
+    {
+        printf("\nThe Circular Linked List is empty. !!\n");
+    }
+    else if (Head == Tail)
+    {
+        Head = NULL;
+        free(temp);
+        printf("Deleted the last node %d Successfully.\n", Tail->data);
+        Tail = Head;
+    }
+    else
+    {
+        while (temp->next != Tail)
+        {
+            temp = temp->next;
+        }
+        temp->next = Head;
+        printf("Deleted the last node %d Successfully.\n", Tail->data);
+        free(Tail);
+        Tail = temp;
+    }
+}
+// Function to free the memory used from the heap using malloc
+void ReleaseMemory()
+{
+    node *temp = Head;
+    while (temp != Tail)
+    {
+        node *new = temp->next;
+        free(temp);
+        temp = new;
+    }
+}
