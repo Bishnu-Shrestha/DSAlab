@@ -36,6 +36,7 @@ void SelectSort(int *a, int n)
             a[i] = min;
         }
     }
+    // Dusolaying the sorted array
     printf("After sorting:\n");
     for (int i = 0; i < n; i++)
     {
