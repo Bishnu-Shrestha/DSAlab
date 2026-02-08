@@ -1,5 +1,5 @@
 /*
-C program to perform merge sort
+C program to perform insertion sort
 */
 #include <Stdio.h>
 void InsertSort(int *, int);
@@ -17,7 +17,7 @@ int main()
     InsertSort(arr, n);
     return 0;
 }
-
+// Function to perform insertion sort
 void InsertSort(int *a, int n)
 {
     int i, j;
