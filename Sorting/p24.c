@@ -17,7 +17,7 @@ int main()
     }
     merge_sort(arr, 0, size);
 }
-
+// Function to divide the array into halves
 void merge_sort(int *a, int l, int r)
 {
     if (l < r)
@@ -27,4 +27,13 @@ void merge_sort(int *a, int l, int r)
         merge_sort(a, m + 1, r);
         merge(a, l, m + 1, r);
     }
+}
+void merge(int *a, int l, int m, int r){
+int x=l,y=m,z=r;
+int b[z],a[y];
+while (x<m&&y<=r)
+{
+  
+}
+
 }
