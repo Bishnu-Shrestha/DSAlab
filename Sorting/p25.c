@@ -16,39 +16,45 @@ int main()
         scanf("%d", &arr[i]);
     }
     quickSort(arr, 0, size);
+    // Displaying the sorted array
+    printf("After sorting:\n");
+    for (int i = 0; i < size; i++)
+    {
+        printf("%d\t", arr[i]);
+    }
     return 0;
 }
-
+/*
+Recursive function for finding the pivot and calling the
+quick sort function accordingly for left and right half
+*/
 void quickSort(int *a, int l, int r)
 {
-    if (l < r)
-    {
-        int p = partition(a, l, r);
-        quickSort(a, l, p - 1);
-        quickSort(a, p + 1, r);
-    }
+    if (r <= l)
+        return;
+
+    int p = partition(a, l, r);
+    quickSort(a, l, p - 1);
+    quickSort(a, p + 1, r);
 }
+// Function to make partition of the array i.e divide step
 int partition(int *a, int l, int r)
 {
-    int x = l, y = r, p = a[l];
-    while (x < y)
+    int p = a[r];
+    int i = l - 1;
+    for (int j = l; j <= r - 1; j++)
     {
-        while (a[x] <= p)
+        if (a[j] < p)
         {
-            x++;
-        }
-        while (a[y] > p)
-        {
-            y--;
-        }
-        if (x < y)
-        {
-            int temp = a[x];
-            a[x] = a[y];
-            a[y] = temp;
-            a[l] = a[y];
-            a[y] = p;
-            return y;
+            i++;
+            int temp = a[i];
+            a[i] = a[j];
+            a[j] = temp;
         }
     }
+    i++;
+    int temp = a[i];
+    a[i] = a[r];
+    a[r] = temp;
+    return i;
 }
