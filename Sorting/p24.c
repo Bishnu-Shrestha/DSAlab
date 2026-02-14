@@ -7,7 +7,7 @@ void merge(int *, int *, int *, int);
 int main()
 {
     int size;
-    printf("Enter teh size of data to sort: ");
+    printf("Enter the size of data to sort: ");
     scanf("%d", &size);
     int arr[size];
     for (int i = 0; i < size; i++)
