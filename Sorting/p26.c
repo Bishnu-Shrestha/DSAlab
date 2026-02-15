@@ -6,7 +6,7 @@ program to perform heap sort
 #define max 16
 void buildHeap(int *, int);
 void heapify(int *, int);
-void heapsort(int *);
+void heapsort(int *, int);
 
 int main()
 {
@@ -19,9 +19,16 @@ int main()
         printf("Enter the %d element: ", i);
         scanf("%d", &arr[i]);
     }
-    heapify(arr, size);
+    heapify(arr, size); // Displaying the sorted array
+    printf("\nArray :\n");
+    for (int i = 0; i < size; i++)
+    {
+        printf("%d\t", arr[i]);
+    }
+    heapsort(arr, size);
+
     // Displaying the sorted array
-    printf("After sorting:\n");
+    printf("\nAfter sorting:\n");
     for (int i = 0; i < size; i++)
     {
         printf("%d\t", arr[i]);
@@ -44,20 +51,49 @@ void heapify(int *a, int s)
 
         if (l > s || r > s)
         {
-            break;
+        break;
         }
-        else if (a[i] < a[l] && a[l] > a[r])
+        if (a[l] > a[i] && a[r] > a[i])
         {
-            temp = a[i];
-            a[i] = a[l];
-            a[l] = temp;
+            if (a[l] > a[r])
+            {
+                temp = a[i];
+                a[i] = a[l];
+                a[l] = temp;
+            }
+            else if (a[r] > a[l])
+            {
+                temp = a[i];
+                a[i] = a[r];
+                a[r] = temp;
+            }
         }
-        else if (a[i] < a[r] && a[r] > a[l])
+        else
         {
-            temp = a[i];
-            a[i] = a[r];
-            a[r] = temp;
+            if (a[i] < a[l])
+            {
+                temp = a[i];
+                a[i] = a[l];
+                a[l] = temp;
+            }
+            else if (a[i] < a[r])
+            {
+                temp = a[i];
+                a[i] = a[r];
+                a[r] = temp;
+            }
         }
     }
 }
-void heapsort(int *);
+void heapsort(int *a, int s)
+{
+    if (s - 1 < 1)
+    {
+        return;
+    }
+    int temp = a[0];
+    a[0] = a[s - 1];
+    a[s - 1] = temp;
+    heapify(a, s - 1);
+    heapsort(a, s - 1);
+}
