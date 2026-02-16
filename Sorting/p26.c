@@ -5,7 +5,7 @@ program to perform heap sort
 #include <math.h>
 #define max 16
 void buildHeap(int *, int);
-void heapify(int *, int);
+void heapify(int *, int, int);
 void heapsort(int *, int);
 
 int main()
@@ -19,14 +19,10 @@ int main()
         printf("Enter the %d element: ", i);
         scanf("%d", &arr[i]);
     }
-    heapify(arr, size); // Displaying the sorted array
-    printf("\nArray :\n");
-    for (int i = 0; i < size; i++)
-    {
-        printf("%d\t", arr[i]);
-    }
+    // converting the given input into max heap
+    buildHeap(arr, size);
+    // sorting the max heap using heap sort
     heapsort(arr, size);
-
     // Displaying the sorted array
     printf("\nAfter sorting:\n");
     for (int i = 0; i < size; i++)
@@ -35,65 +31,51 @@ int main()
     }
     return 0;
 }
+// Function to create max heap recursively
 void buildHeap(int *a, int s)
 {
-    for (int i = s / 2 - 1; i >= 0; i--)
+    for (int i = (s / 2) - 1; i >= 0; i--)
     {
-        heapify(a, i);
+        heapify(a, i, s);
     }
 }
-void heapify(int *a, int s)
+// Function to create heap of each node
+void heapify(int *a, int i, int s)
 {
-    for (int i = 0; i < s; i++)
+    int largest = i, left = (2 * i) + 1, right = (2 * i) + 2;
+    if (left < s && a[left] > a[largest])
     {
-
-        int l = 2 * i + 1, r = 2 * i + 2, temp;
-
-        if (l > s || r > s)
-        {
-        break;
-        }
-        if (a[l] > a[i] && a[r] > a[i])
-        {
-            if (a[l] > a[r])
-            {
-                temp = a[i];
-                a[i] = a[l];
-                a[l] = temp;
-            }
-            else if (a[r] > a[l])
-            {
-                temp = a[i];
-                a[i] = a[r];
-                a[r] = temp;
-            }
-        }
-        else
-        {
-            if (a[i] < a[l])
-            {
-                temp = a[i];
-                a[i] = a[l];
-                a[l] = temp;
-            }
-            else if (a[i] < a[r])
-            {
-                temp = a[i];
-                a[i] = a[r];
-                a[r] = temp;
-            }
-        }
+        largest = left;
+    }
+    if (right < s && a[right] > a[largest])
+    {
+        largest = right;
+    }
+    // if largest is not root
+    if (largest != i)
+    {
+        int temp = a[largest];
+        a[largest] = a[i];
+        a[i] = temp;
+        heapify(a, largest, s);
     }
 }
+// Function to sort the elements in a heap
 void heapsort(int *a, int s)
 {
-    if (s - 1 < 1)
+    int last = s - 1;
+    // swap the first and last elements;
+    int temp = a[0];
+    a[0] = a[last];
+    a[last] = temp;
+    // check for the presence of element to convert to heap and stop the recursion
+    if (s < 2)
     {
         return;
     }
-    int temp = a[0];
-    a[0] = a[s - 1];
-    a[s - 1] = temp;
-    heapify(a, s - 1);
-    heapsort(a, s - 1);
+    else
+    {
+        buildHeap(a, last);
+        heapsort(a, last);
+    }
 }
