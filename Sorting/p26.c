@@ -3,6 +3,7 @@ program to perform heap sort
 */
 #include <stdio.h>
 #include <math.h>
+// max size for the heap
 #define max 16
 void buildHeap(int *, int);
 void heapify(int *, int, int);
@@ -39,10 +40,11 @@ void buildHeap(int *a, int s)
         heapify(a, i, s);
     }
 }
-// Function to create heap of each node
+// Function to create heap out of each node
 void heapify(int *a, int i, int s)
 {
     int largest = i, left = (2 * i) + 1, right = (2 * i) + 2;
+    // checking the heap property
     if (left < s && a[left] > a[largest])
     {
         largest = left;
@@ -51,7 +53,7 @@ void heapify(int *a, int i, int s)
     {
         largest = right;
     }
-    // if largest is not root
+    // if largest is not root then swap them
     if (largest != i)
     {
         int temp = a[largest];
