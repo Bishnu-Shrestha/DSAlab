@@ -1,4 +1,9 @@
 /*
 program8 for heap implementation
 */
-7
+#inclide<stdio.h>
+ont main()
+{
+  printf("Heap program to code");
+  return 0;
+}
