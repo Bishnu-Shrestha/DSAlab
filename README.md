@@ -27,15 +27,6 @@ The repository includes implementations of:
 - **Compiler**: GCC/G++ (MinGW)
 - **Platform**: Windows/Cross-platform compatible
 
-## 📁 Project Structure
-
-```
-DSA/
-├── p1.c to pn.c        # Problem implementations and assignments
-├── featureTest.c       # Feature testing and experimentation
-└── README.md           # This file
-```
-
 ## Getting Started
 
 ### Prerequisites
