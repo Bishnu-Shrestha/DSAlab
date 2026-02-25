@@ -53,3 +53,27 @@ void Insert(int *a, int n)
     a[n] = key;
     Heapify(a, n, 0);
 }
+void Delete(int *a, int n)
+{
+    if (n <= 0)
+    {
+        printf("Heap is empty. Cannot delete element.\n");
+        return;
+    }
+    int key;
+    printf("Enter the element to delete: ");
+    scanf("%d", &key);
+    int i;
+    for (i = 0; i < n; i++)
+    {
+        if (a[i] == key)
+            break;
+    }
+    if (i == n)
+    {
+        printf("Element not found in heap.\n");
+        return;
+    }
+    a[i] = a[n - 1];
+    Heapify(a, n - 1, i);
+}
