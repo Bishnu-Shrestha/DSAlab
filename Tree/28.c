@@ -77,3 +77,17 @@ void Delete(int *a, int n)
     a[i] = a[n - 1];
     Heapify(a, n - 1, i);
 }
+void Display(int *a, int n)
+{
+    if (n <= 0)
+    {
+        printf("Heap is empty.\n");
+        return;
+    }
+    printf("Heap elements: ");
+    for (int i = 0; i < n; i++)
+    {
+        printf("%d ", a[i]);
+    }
+    printf("\n");
+}
