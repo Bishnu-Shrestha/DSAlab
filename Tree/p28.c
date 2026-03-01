@@ -40,6 +40,7 @@ int main()
     }
     return 0;
 }
+// Function to insert an element into the heap
 void Insert(int *a, int n)
 {
     if (n >= max)
@@ -53,6 +54,7 @@ void Insert(int *a, int n)
     a[n] = key;
     Heapify(a, n, 0);
 }
+// Function to delete an element from the heap
 void Delete(int *a, int n)
 {
     if (n <= 0)
@@ -77,6 +79,7 @@ void Delete(int *a, int n)
     a[i] = a[n - 1];
     Heapify(a, n - 1, i);
 }
+// Function to display the elements of the heap
 void Display(int *a, int n)
 {
     if (n <= 0)
@@ -91,6 +94,7 @@ void Display(int *a, int n)
     }
     printf("\n");
 }
+// Function to maintain the heap property
 void Heapify(int *a, int n, int i)
 {
     int largest = i;
