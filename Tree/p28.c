@@ -2,16 +2,29 @@
 program for heap data structure implementation
 */
 #include <stdio.h>
-#define max 10
+#define max 10 // Maximum size of the heap
+// Function prototypes
 void Insert(int *, int);
 void Delete(int *, int);
 void Display(int *, int);
 void Heapify(int *, int, int);
+// Main function
 int main()
 {
     int arr[max], size, ch;
     printf("Enter the size of heap(<=%d): ", max);
     scanf("%d", &size);
+    // Initialize the heap with user input
+    for (int i = 0; i < size; i++)
+    {
+        printf("Enter element %d: ", i + 1);
+        scanf("%d", &arr[i]);
+    }
+    // Build the heap using the initial elements
+    for (int i = size / 2 - 1; i >= 0; i--)
+    {
+        Heapify(arr, size, i);
+    }
     while (ch != 5)
     {
         printf("\n****** MENU ******\n1. Insert\n2. Delete\n3. Display\n4. Heapify\n5. Exit");
