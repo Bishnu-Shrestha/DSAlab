@@ -1,6 +1,12 @@
 // cprogram to create a binary tree and perform inorder, preorder and postorder traversals
 #include <stdio.h>
 #define max 100
+typedef struct TreeNode
+{
+    int data;
+    struct TreeNode *left;
+    struct TreeNode *right;
+}tree;
 int main()
 {
     int size;
