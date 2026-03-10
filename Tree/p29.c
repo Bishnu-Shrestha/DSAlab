@@ -1,5 +1,6 @@
-// cprogram to create a binary tree and perform inorder, preorder and postorder traversals
+// cprogram to create a binary tree using dynamic memory allocation and perform inorder, preorder and postorder traversals
 #include <stdio.h>
+#include <stdlib.h> 
 #define max 100
 typedef struct TreeNode
 {
@@ -9,16 +10,7 @@ typedef struct TreeNode
 }tree;
 int main()
 {
-    int size;
-    int arr[max];
     printf("This program is for binary tree implementation.\n");
-    printf("Enter the size of the tree: ");
-    scanf("%d", &size);
-    printf("Enter the elements of the tree: ");
-    for (int i = 0; i < size; i++)
-    {
-        printf("Enter element %d: ", i + 1);
-        scanf("%d", &arr[i]);
-    }
+  
     return 0;
 }
