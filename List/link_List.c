@@ -26,20 +26,19 @@ struct node *start = NULL;
 int main(void)
 {
 	int choice;
-	int flag = 1;
 	while (choice != 9)
 	{
-		printf("\n MENU");
-		printf(" \n\t 1: Insert at Beginning ");
-		printf(" \n\t 2: Insert at given position ");
-		printf(" \n\t 3: Insert at End ");
-		printf(" \n\t 4: Delete at Beginning");
-		printf(" \n\t 5: Delete at specified position");
-		printf(" \n\t 6: Delete at End");
-		printf(" \n\t 7: Display all nodes ");
-		printf(" \n\t 8: Search Item");
+		printf("\n\t MENU");
+		printf("\n\t 1: Insert at Beginning ");
+		printf("\n\t 2: Insert at given position ");
+		printf("\n\t 3: Insert at End ");
+		printf("\n\t 4: Delete at Beginning");
+		printf("\n\t 5: Delete at specified position");
+		printf("\n\t 6: Delete at End");
+		printf("\n\t 7: Display all nodes ");
+		printf("\n\t 8: Search Item");
 		printf("\n\t 9: Exit");
-		printf("\n Enter of your choice:\t");
+		printf("\n Enter your choice:\t");
 		scanf("%d", &choice);
 		switch (choice)
 		{
@@ -74,7 +73,6 @@ int main(void)
 			printf("\n Invalid Choice please Enter again: ");
 		}
 	}
-	system("pause");
 	return 0;
 }
 
@@ -84,7 +82,7 @@ void insert_beg()
 	int item;
 	struct node *nnode;
 
-	printf("\nEnter the item\t	");
+	printf("\n Enter the item:\t");
 	scanf("%d", &item);
 	nnode = (struct node *)malloc(sizeof(struct node));
 	nnode->info = item;
@@ -97,7 +95,7 @@ int insert_position()
 	int item;
 	struct node *nnode, *temp;
 	int pos, i;
-	printf("\n Enter the item\t	");
+	printf("\n Enter the item:\t");
 	scanf("%d", &item);
 	printf("\n Enter the position of node to add ");
 	scanf("%d", &pos);
@@ -129,7 +127,7 @@ void insert_end()
 {
 	int item;
 	struct node *nnode, *temp;
-	printf("\nEnter the item\t	");
+	printf("\n Enter the item:\t");
 	scanf("%d", &item);
 	nnode = (struct node *)malloc(sizeof(struct node));
 	nnode->info = item;
@@ -197,7 +195,7 @@ int del_specified()
 	int pos, i;
 	struct node *temp, *hold;
 
-	printf("\n Enter the position");
+	printf("\n Enter the position:\t");
 	scanf("%d", &pos);
 
 	if (start == NULL)
@@ -235,7 +233,7 @@ int search()
 	}
 	else
 	{
-		printf("\n Enter search item");
+		printf("\n Enter search item:\t");
 		scanf("%d", &key);
 
 		temp = start;
@@ -250,7 +248,7 @@ int search()
 			temp = temp->next;
 		}
 		if (temp == NULL)
-			printf("\n Unsuccessful Search !!!");
+			printf("\n Search Unsuccessful !!!");
 	}
 }
 // Function to display all the element of linked list
@@ -265,7 +263,7 @@ int display()
 	else
 	{
 		temp = start;
-		printf("\n The list is:");
+		printf("\n The list is:\t");
 		while (temp != NULL)
 		{
 			printf("%d ", temp->info);
