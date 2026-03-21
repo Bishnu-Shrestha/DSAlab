@@ -24,9 +24,10 @@ void ReleaseMemory();
 int main(void)
 {
     int pos, val, ch = 0;
+    printf("\n*****  MENU  *****\n 1. Insert at position \n 2. Delete at position \n 3. Get index of element \n 4. Replace value at index \n 5. Append \n 6. Display \n 7. EXIT \n");
     while (ch != 7)
     {
-        printf("\n*****  MENU  *****\n 1. Insert at position \n 2. Delete at position \n 3. Get index of element \n 4. Replace value at index \n 5. Append \n 6. Display \n 7. EXIT \n \t Enter your choice of operation: ");
+        printf("\t Enter your choice: ");
         scanf("%d", &ch);
         switch (ch)
         {

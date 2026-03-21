@@ -22,9 +22,10 @@ void ReleaseMemory();
 int main(void)
 {
     int ch = 0, val = 0;
+    printf("\n******  MENU  ******\n 1. Insert at begining \n 2. Insert at end \n 3. Delete at begining \n 4. Delete at End \n 5. Display \n 6. EXIT \n ");
     while (ch != 6)
     {
-        printf("\n******  MENU  ******\n 1. Insert at begining \n 2. Insert at end \n 3. Delete at begining \n 4. Delete at End \n 5. Display \n 6. EXIT \n \t Enter your choice: ");
+        printf("\t Enter your choice: ");
         scanf("%d", &ch);
         switch (ch)
         {
