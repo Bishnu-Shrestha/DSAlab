@@ -45,6 +45,7 @@ int main()
         case 4:
             printf("\nEnter number of disk: ");
             scanf("%d", &n);
+            printf(" Source = A\n Destination = B\n Auxilary = C");
             toh('A', 'B', 'C', n);
             break;
         case 5:

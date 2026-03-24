@@ -15,6 +15,7 @@ typedef struct QueueDf
 // Function prototypes
 void EnQueue(queue *, int);
 void DeQueue(queue *);
+void DeQueueM(queue *q);
 void Peek(queue *);
 void Insert(queue *, int, int);
 void Display(queue *);
@@ -40,7 +41,7 @@ int main()
             EnQueue(&q, d);
             break;
         case 2:
-            DeQueue(&q);
+            DeQueueM(&q);
             break;
         case 3:
             Peek(&q);
@@ -53,7 +54,6 @@ int main()
             break;
         default:
             printf("\n!!!! ERROR !!!! Chosen operation is out of bound\n\tPlease try again.\n");
-            break;
         }
     }
     return 0;
@@ -85,6 +85,25 @@ void DeQueue(queue *q1)
         printf("\nData %d was removed from the Queue.\n", removed);
     }
 }
+// Modified dequeue function
+void DeQueueM(queue *q)
+{
+    int i;
+    if (q->rear == -1)
+    {
+        printf("Queue is empty\n");
+    }
+    else
+    {
+        printf("\n Deleted item is: %d.\n", q->item[0]);
+        for (i = 0; i < q->rear; i++)
+        {
+            q->item[i] = q->item[i + 1];
+        }
+        q->rear--;
+    }
+}
+
 /*
 Function to insert data in any position of queue
 Turns out insertion is not in the Queue ADT so I am not calling this

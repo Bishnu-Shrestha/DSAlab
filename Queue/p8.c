@@ -16,7 +16,6 @@ typedef struct QueueDf
 void EnQueue(queue *, int);
 void DeQueue(queue *);
 void Peek(queue *);
-void Insert(queue *, int, int);
 void Display(queue *);
 
 int main()

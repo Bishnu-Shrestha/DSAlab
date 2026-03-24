@@ -1,10 +1,11 @@
 // C program to perform selection sort
 #include <stdio.h>
 void SelectSort(int *, int);
+void display(int *a, int n);
 int main()
 {
     int n;
-    printf("Enter the total number of elements you to sort: ");
+    printf("Enter the total number of elements you want to sort: ");
     scanf("%d", &n);
     int data[n];
     for (int i = 0; i < n; i++)
@@ -12,7 +13,11 @@ int main()
         printf("Enter the %d element: ", i);
         scanf("%d", &data[i]);
     }
+    printf("\nBefore sorting: ");
+    display(data, n);
     SelectSort(data, n);
+    printf("\nAfter sorting: ");
+    display(data, n);
     return 0;
 }
 // function to perform selection sort on given data
@@ -35,8 +40,10 @@ void SelectSort(int *a, int n)
             a[min] = temp;
         }
     }
-    // Displaying the sorted array
-    printf("After sorting:\n");
+}
+// display function
+void display(int *a, int n)
+{
     for (int i = 0; i < n; i++)
     {
         printf("%d\t", a[i]);
